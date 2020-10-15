@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Like Button</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="buttons">
+        <button class="like-button">
+          <img src="./thumb.svg" alt="thumb" height="25" />
+        </button>
+        <button class="dislike-button">
+          <img src="./down-thumb.svg" alt="thumb" height="25" />
+        </button>
+      </div>
+      <p class="count-num">0</p>
+    </div>
+    <script>
+      let count = 0;
+      //event listner for the like button
+      const likeButton = document.querySelector(".like-button");
+      const dislikeButton = document.querySelector(".dislike-button");
+      const countNum = document.querySelector(".count-num");
+
+      function debounce(fn, delay) {
+        let timeoutID;
+        // function can take arbitray amount of arguments
+        return function (...args) {
+          // if timeoutID is anything, clear it
+          if (timeoutID) {
+            clearTimeout(timeoutID);
+          }
+          // set timeoutID to equal the parameter function
+          timeoutID = setTimeout(() => {
+            fn(...args);
+          }, delay);
+        };
+      }
+
+      likeButton.addEventListener(
+        "click",
+        debounce((e) => {
+          count += 1;
+          countNum.innerHTML = count;
+        }, 1000)
+      );
+
+      dislikeButton.addEventListener(
+        "click",
+        debounce((e) => {
+          count -= 1;
+          countNum.innerHTML = count;
+        }, 1000)
+      );
+    </script>
+  </body>
+</html>
